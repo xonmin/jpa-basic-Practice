@@ -18,8 +18,10 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = em.find(Member.class,1L);
-            member.setName("Xonmin");
+            Member member = new Member(200L, "member200");
+            em.persist(member);
+
+            em.flush(); // 강제로 쿼리 전송
 
            System.out.println("==================================");
             tx.commit();
