@@ -78,3 +78,32 @@
         - 기본 생성자 필수 (파라미터 없는 Public / protected 생성자)
         - final , enum, interface, inner class X
         - 저장할 필드에 final 사용 x
+        
+   - DB 스키마 자동 생성 - 속성(pom.xml - hibernate.hbm2ddl.auto)
+        - create :   기존 테이블 삭제 후 다시 생성(Drop + create )
+        - create-drop :  create 와 같으나 종료시점에 table drop
+        - update : 변경분만 반영(운영 DB에 사용하면 안된다. )
+        - validate : 엔티티와 테이블이 정상 매핑되었는지만 확인
+        - none : 사용하지 않음 
+   
+   - DB 스키마 자동생성 - 주의점
+        - `운영장비에는 절대 create, create-drop, update 사용하면 안된다. ` 
+            - 잘못하면 데이터 다 날라간다. (* alter 와 drop 기능을 분리하는 것이 맞다.)
+        - 개발 초기 : create , update
+        - test 서버 : update / validate
+        - 스테이징과 운영 서버 : validate/ none
+        
+   - DDL 생성 기능은 DDL을 자동생성할 때만 사용되고, JPA 실행 로직에는 영향을 주지 않는다. 
+   
+   - #### @Column
+        - name : 테이블 네임 
+        - insertable / updatable : 등록/변경가능 여부
+        - nullable : null 값 허용 여부 (false 설정시, ddl 생성할 때 notnull 제약)
+        - unique : @Table 의 uniqueConstraints와 같지만 한 칼럼에 제약할 때
+        - columnDefinition : DB 칼럼정보를 직접 준다. 
+        - length : 문자길이 제약조건 / String 타입에만
+        - precision, scale : BigDecimal 타입에 사용
+            - precision : 소수점을 포함한 전체 자릿수
+            - scale : 소수의 자릿수 
+   - #### @Enumerated 
+        - ##### `ordinal 사용 X`

@@ -1,6 +1,7 @@
 package hellojpa;
 
 import hellojpa.entity.Member;
+import hellojpa.entity.RoleType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,10 +19,13 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member(200L, "member200");
-            em.persist(member);
+            Member member = new Member();
+            member.setId(1L);
+            member.setName("A");
+            member.setRoleType(RoleType.USER);
 
-            em.flush(); // 강제로 쿼리 전송
+
+
 
            System.out.println("==================================");
             tx.commit();
