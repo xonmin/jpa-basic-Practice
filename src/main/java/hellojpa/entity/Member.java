@@ -7,10 +7,21 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@SequenceGenerator(
+        name = "member-seq_generator",
+        sequenceName = "member_seq",
+        initialValue = 1,
+        allocationSize = 1 //  성능 최적화를 위한 default = 50 / 시퀀스 한 번 호출에 증가하는 수(성능 최적화에 사용됨 데이터베이스 시퀀스 값이 하나씩 증가하도록 설정되어 있으면 이 값 을 반드시 1로 설정해야 한다
+        // 50이라면 1에서 다음 sequence는 51 | mem 호출 2 그다음 mem호출 3 - 51을 만나는 순간 nextquery를 통해 101까지 확보
+)
+
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    //sequence 사용
     private Long id;
+
+
     @Column(name = "name",nullable = false, length = 10, columnDefinition = "varchar(100) default 'EMPTY'")
     private String name;
 

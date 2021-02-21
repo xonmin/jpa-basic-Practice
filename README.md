@@ -107,3 +107,28 @@
             - scale : 소수의 자릿수 
    - #### @Enumerated 
         - ##### `ordinal 사용 X`
+        
+   - 기본 키 매핑 어노테이션
+     - @Id 
+        - 직접 할당이면, @Id 만 사용
+        
+     - @GeneratedValue용(자동생성)
+        - IDENTITY : DB에 위임
+        - SEQUENCE : DB 시퀀스 오브젝트 사용 (@SequenceGenerator 필요)
+        - TABLE : 키 생성용 테이블 사용 (@TableGenerator 필요)
+        - AUTO : 방언에 따라 자동 지정 / 기본 값 - 위에 3개 중 하나를 알아서 설정해준다. 
+   
+   - TABLE 전략
+        : 키생성 전용 테이블을 하나 만들어 DB 시퀀스 흉내내는 전략
+        - 장점 : 모든 테이블에 적용 가능
+        - 단점 : 성능 
+        
+   - 권장하는 식별자 전략 
+        - 기존 키 제약 조건 : not null, 유일, 변하면 X
+        - 미래까지 이 조건을 만족하는 자연키는 찾기 어렵다. 대리키(대체키)를 사용하자. 
+        - ##### `권장 : Long 형 + 대체키 + 키 생성전략 사용 `
+        
+   - IDENTITY 전략
+        - 기본 키 생성이 DB에 들어가져야 PK 값이 지정된다. 
+        - `JPA 가 1차 캐시에 들어가야 PK 를 찾는데, identity는 그렇지 못하니, 예외적으로 identity는 persist 를 호출하는 시점에, db에 insert 쿼리를 날린다. `
+        - 따라서 한번에 모아서 insert 하는 것이, identity 전략에서는 불가능하다. 
