@@ -38,8 +38,13 @@ public class JpaMain {
 
             // 1.셀렉트 쿼리문이 없는 이유, 이미 영속성컨텍스트에서 가져와 1차캐시에 있기 때문에
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = "+ findTeam.getName());
+            List<Member> members = findMember.getTeam().getMembers();
+
+            for(Member m : members ){
+                System.out.println(m.getName());
+            }
+
+
            System.out.println("==================================");
             tx.commit();
         }catch (Exception e) { //에러시
