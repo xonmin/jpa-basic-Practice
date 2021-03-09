@@ -22,4 +22,10 @@ public class Team {
     // teaM의 입장에선 본인이 하나 연결된 팀원이 여러명
     @OneToMany(mappedBy = "team") //member에 무슨 변수와 매핑되어잇는지
     private List<Member> members = new ArrayList<>();
+
+
+    private void addMember(Member member){
+        member.setTeam(this);
+        members.add(member);
+    }
 }

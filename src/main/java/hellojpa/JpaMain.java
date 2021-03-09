@@ -23,13 +23,17 @@ public class JpaMain {
             Member member = new Member();
             Team team = new Team();
             team.setName("XonminTeam");
+         //   team.getMembers().add(member); // member에서 team 칼럼은 null 값  -> 이유 : team이 연관관계의 주인이 아니기 때문에 (역방향)
+
             em.persist(team);
 
             member.setName("member1");
-            member.setTeam(team);
+            member.changeTeam(team);  // 26번쨰 line 대신 역할 + setTeam()
             em.persist(member);
 
-            //2. 나가는 쿼리문을 직접 보고 싶을 때화
+            //2. 나가는 쿼리문을 직접 보고 싶을 때
+
+
             //영속성 컨텍스트에 쌓여있는 쿼리 강제 전송
             em.flush();
             //영속성 컨텍스트초기화
@@ -38,7 +42,7 @@ public class JpaMain {
 
             // 1.셀렉트 쿼리문이 없는 이유, 이미 영속성컨텍스트에서 가져와 1차캐시에 있기 때문에
             Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
+            List<Member> members = findMember.getTeam().getMembers(); // mem -> team -> mem
 
             for(Member m : members ){
                 System.out.println(m.getName());
