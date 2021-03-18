@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.concurrent.locks.Lock;
 
 @Entity
 @Getter @Setter
@@ -28,4 +29,7 @@ public class Member {
         this.team = team;
         team.getMembers().add(this);
     }
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker; //joincolumn 무조건 넣어
 }
