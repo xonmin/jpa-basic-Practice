@@ -23,7 +23,7 @@ public class Team {
     @OneToMany(mappedBy = "team") //member에 무슨 변수와 매핑되어잇는지
     private List<Member> members = new ArrayList<>();
 
-
+//halo
     private void addMember(Member member){
         member.setTeam(this);
         members.add(member);
