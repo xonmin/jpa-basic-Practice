@@ -7,7 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 
 @Entity
@@ -32,4 +34,8 @@ public class Member {
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker; //joincolumn 무조건 넣어
+
+
+    @OneToMany(mappedBy ="member" )
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 }
