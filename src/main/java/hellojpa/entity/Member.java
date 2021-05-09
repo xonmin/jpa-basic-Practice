@@ -1,6 +1,7 @@
 package hellojpa.entity;
 
 
+import com.sun.xml.internal.rngom.parse.host.Base;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.locks.Lock;
 
 @Entity
 @Getter @Setter
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)    //sequence 사용
