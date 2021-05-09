@@ -1,9 +1,6 @@
 package hellojpa;
 
-import hellojpa.entity.Member;
-import hellojpa.entity.Movie;
-import hellojpa.entity.RoleType;
-import hellojpa.entity.Team;
+import hellojpa.entity.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,12 +20,10 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member member =  new Member();
-            member.setCreatedBy("Han");
-            member.setCreatedDate(LocalDateTime.now());
-            member.setName("User");
-
-            em.persist(member);
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("Xonmin");
+            em.persist(book);
 
             tx.commit();
         }catch (Exception e) { //에러시
